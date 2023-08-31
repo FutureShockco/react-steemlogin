@@ -1,7 +1,7 @@
 {
-  "name": "react-steem-provider",
+  "name": "react-steemlogin",
   "version": "1.0.9",
-  "description": "A simple component to create apps in the steem blockchain using React",
+  "description": "A simple component to create apps using Steemlogin and React on the Steem Blockchain.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,10 +9,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/BaronJensen/react-steem-provider.git"
+    "url": "https://github.com/FutureShockco/react-steemlogin"
   },
   "keywords": [
-    "steemconnect",
+    "steemlogin",
     "react",
     "steem",
     "blockchain"
@@ -42,7 +42,7 @@
     "react-router-dom": "^5.0.1",
     "steem": "^0.7.5",
     "steem-markdown-only": "0.0.7",
-    "steemconnect": "^3.0.3",
+    "steemlogin": "^1.0.1",
     "uuid": "^3.3.2",
     "webpack": "^4.35.0"
   }

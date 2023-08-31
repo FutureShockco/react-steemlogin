@@ -1,7 +1,7 @@
-# react-steem-provider
+# react-steemlogin
 
-### What is react-steem-provider?
-Start quickly a steem project with this flexible library that combines SteemConnect and Steem
+### What is react-steemlogin?
+Start quickly a steem project with this flexible library that combines SteemLogin and Steem
 
 ***
 
@@ -11,13 +11,13 @@ Start quickly a steem project with this flexible library that combines SteemConn
 
 [1. Installing.](#install)
 
-[2. Using SteemConnect Context.](#steemconnect)
+[2. Using SteemLogin Context.](#steemlogin)
 
-  [- Step 1: Setting up our provider.](#steemconnect-1)
+  [- Step 1: Setting up our provider.](#steemlogin-1)
 
-  [- Step 2: Using the context consumer.](#steemconnect-2)
+  [- Step 2: Using the context consumer.](#steemlogin-2)
 
-  [- What is in the steem instance?](#steemconnect-3)
+  [- What is in the steem instance?](#steemlogin-3)
 
 [3. Async Steem functions.](#steem)
 
@@ -33,24 +33,24 @@ Start quickly a steem project with this flexible library that combines SteemConn
 
 ## 1.Installing
 ```bash
-$ npm install react-steem-provider
-$ yarn add react-steem-provider
+$ npm install react-steemlogin
+$ yarn add react-steemlogin
  ```
 
 
 ***
 
-<a name="steemconnect"/>
+<a name="steemlogin"/>
 
-## 2.Using SteemConnect Context.
+## 2.Using SteemLogin Context.
 
-This library implements a context provider to manage the login state and other steemConnect instances.
+This library implements a context provider to manage the login state and other steemLogin instances.
 
-<a name="steemconnect-1"/>
+<a name="steemlogin-1"/>
 
 ### Step 1: Setting up the context provider (you MUST do this step)
 
-When the context provider is mounted, checks if there is the callback url with the token from SteemConnect to authenticate the user automatically.
+When the context provider is mounted, checks if there is the callback url with the token from SteemLogin to authenticate the user automatically.
 
 
 *Note: The context provider requires the Steem Connect configJSON of your project*
@@ -59,12 +59,12 @@ When the context provider is mounted, checks if there is the callback url with t
 **App.js**
 ```javascript
 import React from 'react';
-import SteemProvider from 'react-steem-provider';
+import SteemProvider from 'react-steemlogin';
 import Dashboard from './Dashboard'; //Caution!
 
-//SteemConnect Config JSON
+//SteemLogin Config JSON
 const STEEM_CONFIG = {
-        baseURL: 'https://steemconnect.com',
+        baseURL: 'https://steemlogin.com',
         app: '<appname>', 
         callbackURL: "<callbackURL>", 
         scope: [ 'login', 'vote', 
@@ -88,11 +88,11 @@ export default App;
 
 ***
 
-<a name="steemconnect-2"/>
+<a name="steemlogin-2"/>
 
 ### Step 2: Using the Steem Context Consumer.
 
-Once we have the SteemProvider in a parent component *(App.js)* we need to consume our **Context Provider** to  use the instances and functions from SteemConnect, in React there are many options to consume context, let's some of them.
+Once we have the SteemProvider in a parent component *(App.js)* we need to consume our **Context Provider** to  use the instances and functions from SteemLogin, in React there are many options to consume context, let's some of them.
 
 
 *(Option A)* - **Using steem context consumer with useContext (hooks)**
@@ -104,7 +104,7 @@ Once we have the SteemProvider in a parent component *(App.js)* we need to consu
 
 ```javascript
 import React, {useContext} from 'react';
-import {SteemContext} from 'react-steem-provider';
+import {SteemContext} from 'react-steemlogin';
 
 const Dashboard = (props)=>{
   const {
@@ -133,7 +133,7 @@ export default Dashboard;
 
 ```javascript
 import React from 'react';
-import {withSteem} from 'react-steem-provider'; //CONSUMER HOC
+import {withSteem} from 'react-steemlogin'; //CONSUMER HOC
 
 //Note: withSteem(HOC) is responsible of the **steem** prop. 
 const Dashboard = withSteem(({steem})=>{
@@ -160,7 +160,7 @@ export default Dashboard;
 NOTE:
 
 Instead of using withSteem (HOC), you can import the **SteemContext** as well to use it's Consumer .
-import {SteemContext} from 'react-steem-provider';
+import {SteemContext} from 'react-steemlogin';
 
 <SteemContext.Consumer>
 {(steem)=>{
@@ -174,7 +174,7 @@ import {SteemContext} from 'react-steem-provider';
 
 ---
 
-<a name="steemconnect-3"/>
+<a name="steemlogin-3"/>
 
 ### What is in the *steem* instance?
 
@@ -183,9 +183,9 @@ import {SteemContext} from 'react-steem-provider';
 
 ```javascript
     {
-        loginUrl,//SteemConnect loginUrl 
+        loginUrl,//SteemLogin loginUrl 
         auth, //steem user or null
-        steemConnect,//steemConnect original instance (client)
+        steemLogin,//steemLogin original instance (client)
         logout, //logout function
         loading, //true when auth is loading
         actions //Set of writtig functions
@@ -300,7 +300,7 @@ A simplificated set of async steem functions.
 
 
 ```javascript
-import SteemAsync from 'react-steem-provider/SteemAsync';
+import SteemAsync from 'react-steemlogin/SteemAsync';
 ```
 - List of posts in the platform.
 ```javascript
@@ -357,7 +357,7 @@ const followers =  SteemAsync.getFollowers(username, limit,  startAtSting = "a")
 
 ### You can access to the steem.js package:
 ```javascript
-import {steem} from 'react-steem-provider/SteemAsync';
+import {steem} from 'react-steemlogin/SteemAsync';
 ```
 
 
@@ -372,13 +372,13 @@ Useful functions for your steem project.
 
 - Parse reputation
 ```javascript
-import {parserSteemRep, parserSteemSimpleRep} from 'react-steem-provider/Helpers';
+import {parserSteemRep, parserSteemSimpleRep} from 'react-steemlogin/Helpers';
 parserSteemRep("<<reputation>>") 
 parserSteemSimpleRep("<<reputation>>")
 ```
 - Parse Steem markdown  
 ```javascript
-import {parseSteemMarkdown} from 'react-steem-provider/Helpers';
+import {parseSteemMarkdown} from 'react-steemlogin/Helpers';
 parseSteemMarkdown("<<post.body>>")
 ```
 
@@ -394,8 +394,8 @@ parseSteemMarkdown("<<post.body>>")
 
 ```javascript
 import React, { useEffect, useContext } from "react";
-import SteemAsync from "react-steem-provider/SteemAsync";
-import { SteemContext } from "react-steem-provider";
+import SteemAsync from "react-steemlogin/SteemAsync";
+import { SteemContext } from "react-steemlogin";
 
 const PrintPost = props => {
   const { actions, auth } = useContext(SteemContext);
@@ -408,8 +408,8 @@ const PrintPost = props => {
   const makeANewPost = () => {
     actions
       .post({
-        title: "_react-steem-provider",
-        body: "### npm install react-steem-provider",
+        title: "_react-steemlogin",
+        body: "### npm install react-steemlogin",
         category: "developer"
       })
       .then(() => {

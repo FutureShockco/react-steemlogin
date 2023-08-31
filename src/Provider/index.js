@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { withRouter, Redirect, BrowserRouter} from 'react-router-dom';
-import steemconnect from 'steemconnect';
+import steemlogin from 'steemlogin';
 import {setToken, getToken, removeToken} from '../storage/localToken';
 import actionsCreator from "./actionsCreator"
 
@@ -27,14 +27,14 @@ const SteemContext = React.createContext();
 			}
 
 
-			this.steemConnect  = steemconnect.Initialize(this.props.config)
-			this.steemConnectUrl = this.steemConnect.getLoginURL();
+			this.steemLogin  = steemlogin.Initialize(this.props.config)
+			this.steemLoginUrl = this.steemLogin.getLoginURL();
 		}
 		//Clean all the state of the app
 		logout()
 		{
 
-			this.steemConnect.revokeToken((err, res)=> {
+			this.steemLogin.revokeToken((err, res)=> {
 				if(res)
 				{
 					this.setState({token: null,
@@ -50,7 +50,7 @@ const SteemContext = React.createContext();
 
 		login(redirect="", auto_redirect=true)
 		{
-			//We check if is a SteemConnect Method
+			//We check if is a SteemLogin Method
 			if(this._getLocationParams())
 				if(auto_redirect)
 					this.props.history.push(redirect)
@@ -58,7 +58,7 @@ const SteemContext = React.createContext();
 			if(this._loadToken())
 			{
 				this.setState({loading: true})
-				this.steemConnect.me((err, res) =>{
+				this.steemLogin.me((err, res) =>{
 				if(res){
 					this.setState({auth: res.account})
 				}
@@ -74,7 +74,7 @@ const SteemContext = React.createContext();
 
 		_getLocationParams()
 		{
-			//Validate if is an steemconnect token or something else.
+			//Validate if is an steemlogin token or something else.
 			const queries = qs.parse(this.props.location.search);
 			if(queries)
 				if(queries.access_token)
@@ -93,7 +93,7 @@ const SteemContext = React.createContext();
 				{
 					//Validata date created
 					this.setState({token:saved_token.access_token})
-					this.steemConnect.setAccessToken([saved_token.access_token])
+					this.steemLogin.setAccessToken([saved_token.access_token])
 					return true
 				}
 			return false
@@ -104,13 +104,13 @@ const SteemContext = React.createContext();
 			var params = {};
 
 			// The "username" parameter is required prior to log in for "Steem Keychain" users.
-			if (steemconnect.useSteemKeychain) {
-				console.log(steemconnect.useSteemKeychain)
+			if (steemlogin.useSteemKeychain) {
+				console.log(steemlogin.useSteemKeychain)
 
 			//params = { username: 'fabien' };
 			}
 /*
-			this.steemconnect.login(params, function(err, token) {
+			this.steemlogin.login(params, function(err, token) {
 			console.log(err, token)
 			});
 			*/
@@ -132,9 +132,9 @@ const SteemContext = React.createContext();
 		{
 			const steem = {
 
-						loginUrl: this.steemConnectUrl,
+						loginUrl: this.steemLoginUrl,
 						auth: this.state.auth,
-						steemConnect: this.steemConnect,
+						steemLogin: this.steemLogin,
 						logout: this.logout.bind(this),
 						loading: this.state.loading
 			}

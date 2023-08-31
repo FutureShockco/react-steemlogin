@@ -35,7 +35,7 @@ const actionsCreator = (steem) => {
 		]
 
 				return new Promise((resolve, reject) => {
-				steem.steemConnect.broadcast([
+				steem.steemLogin.broadcast([
 					comment, ...advanced],
 	            	(err, res)=>{
 	            	if(err)
@@ -67,7 +67,7 @@ const actionsCreator = (steem) => {
 		]
 
 				return new Promise((resolve, reject) => {
-				steem.steemConnect.broadcast([
+				steem.steemLogin.broadcast([
 					comment, ...advanced],
 								(err, res)=>{
 									console.log([
@@ -81,7 +81,7 @@ const actionsCreator = (steem) => {
 			})
 		},
 		remove: (permlink)=>( new Promise((resolve, reject) => {
-					steem.steemConnect.broadcast([
+					steem.steemLogin.broadcast([
 					[
 						"delete_comment",
 						{
@@ -103,7 +103,7 @@ const actionsCreator = (steem) => {
 		),
 		me: () => {
 			return new Promise((resolve, reject) => {
-				steem.steemConnect.me((err, res) => {
+				steem.steemLogin.me((err, res) => {
 				  if(err)
 						reject(err)
 					else
@@ -113,7 +113,7 @@ const actionsCreator = (steem) => {
 		},
 		comment: (parentAuthor, parentPermlink, author, permlink, title, body, jsonMetadata) => {
 			return new Promise((resolve, reject) => {
-				steem.steemConnect.comment(parentAuthor, parentPermlink, author, permlink, title, body, jsonMetadata, (err, res) => {
+				steem.steemLogin.comment(parentAuthor, parentPermlink, author, permlink, title, body, jsonMetadata, (err, res) => {
 				  if(err)
 						reject(err)
 					else
@@ -123,7 +123,7 @@ const actionsCreator = (steem) => {
 		},
 		revokeToken: () => {
 			return new Promise((resolve, reject) => {
-				steem.steemConnect.revokeToken((err, res) => {
+				steem.steemLogin.revokeToken((err, res) => {
 				  if(err)
 						reject(err)
 					else
@@ -133,7 +133,7 @@ const actionsCreator = (steem) => {
 		},
 		reblog: (account, author, permlink) => {
 			return new Promise((resolve, reject) => {
-				steem.steemConnect.reblog(account, author, permlink, (err, res) => {
+				steem.steemLogin.reblog(account, author, permlink, (err, res) => {
 				  if(err)
 						reject(err)
 					else
@@ -144,7 +144,7 @@ const actionsCreator = (steem) => {
 		follow: (following) => {
 			return new Promise((resolve, reject) => {
 				const follower = _authUser;
-				steem.steemConnect.follow(follower, following,(err, res) => {
+				steem.steemLogin.follow(follower, following,(err, res) => {
 				  if(err)
 						reject(err)
 					else
@@ -154,7 +154,7 @@ const actionsCreator = (steem) => {
 		},
 		unfollow: (unfollower, unfollowing) => {
 			return new Promise((resolve, reject) => {
-				steem.steemConnect.unfollow(unfollower, unfollowing,(err, res) => {
+				steem.steemLogin.unfollow(unfollower, unfollowing,(err, res) => {
 				  if(err)
 						reject(err)
 					else
@@ -164,7 +164,7 @@ const actionsCreator = (steem) => {
 		},
 		claimRewardBalance: (account, rewardSteem, rewardSbd, rewardVests) => {
 			return new Promise((resolve, reject) => {
-				steem.steemConnect.claimRewardBalance(account, rewardSteem, rewardSbd, rewardVests,(err, res) => {
+				steem.steemLogin.claimRewardBalance(account, rewardSteem, rewardSbd, rewardVests,(err, res) => {
 				  if(err)
 						reject(err)
 					else
@@ -174,7 +174,7 @@ const actionsCreator = (steem) => {
 		},
 		updateUserMetadata: (metadata) => {
 			return new Promise((resolve, reject) => {
-				steem.steemConnect.updateUserMetadata(metadata, (err, res) => {
+				steem.steemLogin.updateUserMetadata(metadata, (err, res) => {
 				  if(err)
 						reject(err)
 					else
